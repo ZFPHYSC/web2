@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "Course Assistant",
+  "version": "1.0.0",
+  "description": "AI-powered course assistant that syncs content from your LMS",
+  
+  "permissions": [
+    "activeTab",
+    "storage",
+    "downloads",
+    "webRequest",
+    "declarativeNetRequest"
+  ],
+  
+  "host_permissions": [
+    "https://onq.queensu.ca/*",
+    "https://canvas.instructure.com/*",
+    "https://learn.uwaterloo.ca/*",
+    "https://eclass.yorku.ca/*",
+    "http://localhost:3000/*",
+    "http://localhost:8000/*"
+  ],
+  
+  "background": {
+    "service_worker": "background.js"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": [
+        "https://onq.queensu.ca/*",
+        "https://canvas.instructure.com/*",
+        "https://learn.uwaterloo.ca/*",
+        "https://eclass.yorku.ca/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Course Assistant"
+  },
+  
+  "web_accessible_resources": [
+    {
+      "resources": ["bridge.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+} 
